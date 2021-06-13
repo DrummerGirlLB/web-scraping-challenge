@@ -74,8 +74,8 @@ def scrape():
 
         img_path = hemi_url + information.find("img", class_="thumb")["src"]
     
-        info_mars["h_title" = h_title.strip()
-        info_mars["img_path" = img_path
+        info_mars["h_title"] = h_title.strip()
+        info_mars["img_path"] = img_path
         
         hemi_data.append({"h_title" : h_title, "img_path" : img_path})
         
