@@ -6,67 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mission to Mars</title>
+  <div class="container text-center">
+    <h1 class="jumbotron">Mission to Mars</h1>
+    <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+  </div> 
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"></script>
+
+
+
 </head>
 
 <body>
-  
-    <div class="jumbotron text-center">
-      <h1>Mission to Mars</h1>
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
-    </div>
-      <div class="container-fluid news no-padding" id="scraped-data">
-        <div class="row no-gutter">
-          <div class="card-body">
-            <h5 class="card-title" id="font">Latest Mars News</h5>
-            <h6 class="card-subtitle mb-2 " id="font">{{ info_mars.h_title }}</h6>
-            <p class="card-text">{{ info_mars.paragraphs }}</p>
-            <a href={{ info_mars.url }} target="_blank">Check News</a>
-        </div>
-    </div>
-    </div>
-    <div class="row no-gutter img-table">
-      <div class="col-md-6" >
-        <div class="card">
-          <div class="card-body" id="img-table">
-            <h5 class="card-title">Featured Mars Image</h5>
-            <p class="card-text" id="dark-font">{{ info_mars.pic_url }}</p>
-            <img class="card-img-bottom" src="{{ info_mars.pic_url }}" alt="Featured Mars Image">
-            <a href={{ info_mars.url }} target="_blank">Check Images</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" >
-        <div class="card">
-          <div class="card-body" id="img-table">
-            <div class="col-md-12">
-              <div>
-                <h5 class="card-title">Mars Facts</h5>
-                <p class="card-text"id="dark-font" >{{ info_mars.mars_data | safe }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class ="row" id="mars-hemispheres">
-  <div class = "col-md-12">
-      <h3><center>Mars Hemispheres</center></h3>
-      {% for hemisphere in info_mars.hemi_data %}
-          <div class = "col-md-6">
-              <div class = "thumbnail">
-                  <img src = "{{hemisphere.pic_url}}">
-                      <h3>{{hemisphere.h_title}}</h3>
+  <div class ="row">
+    <div class = "col-md-12">
+        <h3><center>Mars Hemispheres</center></h3>
+          {% for hemis in hemi_data %}
+              <div class = "col-md-6">
+                  <div class = "thumbnail">
+                      <img src = "{{ hemi_data.pic_url }}">
+                          <h3>{{ hemi_data.h_title }}</h3>
+                      </div>
                   </div>
+          {% endfor %}
               </div>
-      {% endfor %}
-          </div>
-  
-  </div>
-
+    </div>
 
 
 
@@ -80,6 +57,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
   </html>
-  
-      </body>
-  </html>
+ 
