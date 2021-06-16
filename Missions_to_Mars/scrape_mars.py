@@ -8,10 +8,12 @@ scraped_data = {}
 
 def init_browser():
     executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=False) 
+    return Browser('chrome', **executable_path, headless=False) 
+
+browser = init_browser
 
 def scrape():
-    browser = init_browser()
+    browser = init_browser
 
     url = 'https://redplanetscience.com/'
     browser.visit(url)
@@ -19,12 +21,19 @@ def scrape():
     text = browser.html
     soup = BeautifulSoup(text, 'html.parser')
 
-#news article
-    news_title = soup.find('div', class_="content_title").string
-    news_p = soup.find('div', class_="article_teaser_body").string
+######news article######
+    news_title = soup.find('div', class_="content_title").text
+    news_p = soup.find('div', class_="article_teaser_body").text
 
+#add to dict
+    scraped_data['news_title'] = news_title
+    scraped_data['news_p'] = news_p
 
-#featured image
+    browser.quit()
+
+######featured image######
+    browser = init_browser()
+
     url2 = 'https://spaceimages-mars.com/'
     browser.visit(url2)
 
@@ -36,8 +45,15 @@ def scrape():
     imag = newsoup.find('img', class_="headerimage fade-in")['src']
     featured_image_url = 'https://spaceimages-mars.com/' + imag
 
+#add to dict
+    scraped_data['featured_image_url'] = featured_image_url
 
-#mars facts table
+    browser.quit()
+
+
+######mars facts table######
+    browser = init_browser()
+
     mars_url = 'https://galaxyfacts-mars.com'
     table_facts = pd.read_html(mars_url)
 
@@ -48,6 +64,11 @@ def scrape():
     mars_data_html = mars_data.to_html()
     mars_data_html.replace("\n",'')
     mars_table = mars_data.to_html("mars_facts.html")
+
+#add to dict
+    scraped_data['mars_table'] = mars_table
+
+    browser.quit()
 
 #hemishperes
     hemi_url = "https://marshemispheres.com/"
@@ -73,16 +94,9 @@ def scrape():
     
         hemisphere_image_urls.append({"title" : title, "img_url" : img_url})
 
+#add to dict
+        scraped_data['hemisphere_image_urls'] = hemisphere_image_urls
+
     browser.quit()
-
-#dict?? lets try it out....
-
-    scraped_data = {
-        "news_title": news_title,
-        "news_p": news_p,
-        "featured_image_url": featured_image_url,
-        "mars_table": mars_table,
-        "hemisphere_image_urls": hemisphere_image_urls
-    }
 
     return scraped_data
