@@ -4,7 +4,7 @@ import time
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 
-scrapped_data = {}
+scraped_data = {}
 
 def init_browser():
     executable_path = {'executable_path': ChromeDriverManager().install()}
